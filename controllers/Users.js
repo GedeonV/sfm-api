@@ -10,7 +10,7 @@ exports.users_register = (req,res) => {
 	const userData = {
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
-		location : req.body.location,
+		location : JSON.stringify(req.body.location),
 		email: req.body.email,
 		mobile: req.body.mobile,
 		party: req.body.party,
