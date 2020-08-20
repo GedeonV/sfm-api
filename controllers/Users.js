@@ -17,15 +17,19 @@ exports.users_register = (req,res) => {
 		songs: req.body.songs,
 		created: today
 	}
-
 	User.findOne({
 		email: req.body.email
 	})
 	.then(user => {
 		if(!user){
-				res.json({status: user.email + '  registered'})
+			User.create(userData)
+				.then(user => {
+					res.json({status: user.email + '  registered'})
+				})
+				.catch(err => {
+					res.json({error: err})
+				})
 			}
-
 		else{
 			res.json({error: 'User already exists'})
 		}
