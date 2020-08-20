@@ -39,10 +39,3 @@ app.use("/parties", Parties)
 const server = app.listen(port, function (){
 	console.log("Server is running on port: " + port)
 })
-
-const io = require('socket.io')(server);
-io.on('connection', function(socket) {
-   socket.on('stream',function(image){
-      socket.broadcast.emit('stream', image);
-   });
-});
