@@ -29,10 +29,12 @@ mongoose.connect(mongoURI, {useNewUrlParser: true})
 	.catch(err => console.log(err))
 
 var Users = require("./routes/Users")
-var Streams = require("./routes/Streams")
+var Songs = require("./routes/Songs")
+var Parties = require ("./routes/Parties")
 
 app.use("/users", Users)	
-app.use("/streams", Streams)
+app.use("/songs", Songs)
+app.use("/parties", Parties)
 
 const server = app.listen(port, function (){
 	console.log("Server is running on port: " + port)
