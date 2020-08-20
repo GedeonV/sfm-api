@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended : false}))
   return next();
 });*/
 
-const mongoURI = 'mongodb+srv://arthur_88:prjsfm88@singforme.ybbr4.mongodb.net/project-sfm?retryWrites=true&w=majority'
+const mongoURI = 'mongodb://arthur_88:prjsfm88@singforme.ybbr4.mongodb.net/project-sfm?retryWrites=true&w=majority'
 
 mongoose.connect(mongoURI, {useNewUrlParser: true})
 	.then(() => console.log("MongoDB Connected"))
