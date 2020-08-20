@@ -6,7 +6,6 @@ const User = require("../models/User")
 
 exports.users_register = (req,res) => {
 	const today = new Date()
-	console.log(req.body.location)
 	const userData = {
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
