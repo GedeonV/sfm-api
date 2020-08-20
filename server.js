@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended : false}))
   return next();
 });*/
 
-const mongoURI = 'mongodb://GedeonV:pMC33ON03fdx68zJ@cluster0-shard-00-00-dfgis.mongodb.net:27017,cluster0-shard-00-01-dfgis.mongodb.net:27017,cluster0-shard-00-02-dfgis.mongodb.net:27017/redsquare?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority'
+const mongoURI = 'mongodb://arthur_88:pe1RozP88aKkunFQ@singforme-shard-00-00.ybbr4.mongodb.net:27017,singforme-shard-00-01.ybbr4.mongodb.net:27017,singforme-shard-00-02.ybbr4.mongodb.net:27017/<dbname>?ssl=true&replicaSet=atlas-mwe0ks-shard-0&authSource=admin&retryWrites=true&w=majority'
 
 mongoose.connect(mongoURI, {useNewUrlParser: true})
 	.then(() => console.log("MongoDB Connected"))
