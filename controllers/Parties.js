@@ -61,7 +61,7 @@ exports.parties_get_id = (req,res) => {
 					{
 						"party_id": party._id,
 						"event_name" : party.event_name,
-						"description": party.description
+						"description": party.description,
 						"location" : party.location,
 						"date": party.date,
 						"state": party.state,
