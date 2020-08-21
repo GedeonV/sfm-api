@@ -17,6 +17,6 @@ parties.get('/event/:_id', PartiesController.parties_get_id)
 
 parties.delete('/:_id', PartiesController.parties_delete)
 
-parties.put('/event/:_id', PartiesController.)
+parties.put('/event/:_id', PartiesController.parties_update)
 
 module.exports = parties
