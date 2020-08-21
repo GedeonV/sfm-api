@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const PartySchema = new Schema({
-	name : {
+	event_name : {
 		type: String,
 		required: true, 
 	},
@@ -15,6 +15,13 @@ const PartySchema = new Schema({
 		required: true
 	},
 	description : {
+		type: String,
+	},
+	event_code: {
+		type: String,
+		required: true
+	},
+	theme: {
 		type: String,
 	},
 	state : {

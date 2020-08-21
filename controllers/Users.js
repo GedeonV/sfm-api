@@ -23,18 +23,18 @@ exports.users_register = (req,res) => {
 		if(!user){
 			User.create(userData)
 				.then(user => {
-					res.json({status: user.email + '  registered'})
+					res.json({'status': user.email + '  enregistrée'})
 				})
 				.catch(err => {
-					res.json({error: err})
+					res.json({'erreur': err})
 				})
 			}
 		else{
-			res.json({error: 'User already exists'})
+			res.json({'erreur': 'Utilisateur existe déjà'})
 		}
 	})
 	.catch(err => {
-		res.json({'error': err})
+		res.json({'erreur': err})
 	})
 }
 
@@ -44,11 +44,11 @@ exports.users_get_all = (req,res) => {
 		if(user){
 			res.send(user)
 		}else{
-			res.json({error: 'Users does not exist'})
+			res.json({'erreur': 'Aucune donnée'})
 		}
 	})
 	.catch(err => {
-		res.json({'error': err})
+		res.json({'erreur': err})
 	})
 }
 
@@ -73,11 +73,11 @@ exports.users_get_id = (req,res) => {
 					}
 				res.send(data_json)
 		}else{
-			res.json({error: 'User does not exist'})
+			res.json({'erreur': 'L\'utilisateur n\'existe pas'})
 		}
 	})
 	.catch(err => {
-		res.json({'error': err})
+		res.json({'erreur': err})
 	})
 }
 
@@ -87,13 +87,13 @@ exports.users_delete = (req,res) => {
 	})
 	.then(user => {
 		if(user){
-			res.send({notification: 'User deleted'})
+			res.send({'notification': 'Utilisateur supprimé'})
 		}else{
-			res.json({error: 'Can\'t Delete'})
+			res.json({'erreur': 'Impossible de supprimé'})
 		}
 	})
 	.catch(err => {
-		res.json({'error': err})
+		res.json({'erreur': err})
 	})
 }
 
@@ -116,12 +116,12 @@ exports.users_update = (req,res) => {
 	}, userUpdatedData)
 	.then(user => {
 		if(user){
-			res.send({notification: 'Utilisateur est modifié'})
+			res.send({'notification': 'Utilisateur est modifié'})
 		}else{
-			res.json({error: 'Can\'t Update'})
+			res.json({'erreur': 'Impossible de mettre à jour'})
 		}
 	})
 	.catch(err => {
-		res.json({'error': err})
+		res.json({'erreur': err})
 	})
 }
