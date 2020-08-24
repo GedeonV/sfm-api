@@ -39,7 +39,6 @@ exports.parties_create = (req,res) => {
 
 exports.parties_get_all = (req,res) => {
 	Party.find({})
-	.populate('users')
 	.then(party => {
 		if(party){
 			res.send(party)
@@ -56,6 +55,7 @@ exports.parties_get_id = (req,res) => {
 	Party.findOne({
 		_id : req.params._id
 	})
+	.populate('users','')
 	.then(party => {
 		if(party){
 				let data_json = 
