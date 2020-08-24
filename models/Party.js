@@ -30,13 +30,7 @@ const PartySchema = new Schema({
 
 	users : [{
 		type: mongoose.Schema.Types.ObjectId, ref: 'users'
-	}, 
-	{	
-		order : {
-			type: 'Number'	
-		}
-	}
-	],
+	}],
 
 	current_song : {
 		type: Object
