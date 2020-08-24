@@ -145,9 +145,9 @@ exports.parties_signup = (req,res) => {
 exports.parties_user_remove = (req,res) => {
 	Party.findOneAndUpdate({
 		_id : req.params._id
-	}, {$unset: {users: req.body.userId}})
+	}, {$pull: {users: req.body.userId}})
 	.then(party => {
-		if(!party){
+		if(party){
 			res.send({'notification': 'Utilisateur enlevé'})
 		}else{
 			res.json({'erreur': 'Impossible d\'enlever l\'utilisateur'})
