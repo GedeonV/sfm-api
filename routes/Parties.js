@@ -24,4 +24,6 @@ parties.put('/event/:_id', checkAuth,PartiesController.parties_update)
 
 parties.put('/event/:_id/sign', checkAuth,PartiesController.parties_signup)
 
+parties.delete('/event/:_id/remove', checkAuth,PartiesController.parties_user_remove)
+
 module.exports = parties

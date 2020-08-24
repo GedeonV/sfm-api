@@ -127,7 +127,6 @@ exports.parties_update = (req,res) => {
 }
 
 exports.parties_signup = (req,res) => {
-
 	Party.findOneAndUpdate({
 		_id : req.params._id
 	},{$push: {users: req.body.userId}})
@@ -136,6 +135,22 @@ exports.parties_signup = (req,res) => {
 			res.send({'notification': 'Inscription éffectué'})
 		}else{
 			res.json({'erreur': 'Impossible de s\'inscrire, utilisateur déjà inscrit ou n\'existe pas '})
+		}
+	})
+	.catch(err => {
+		res.json({'erreur': err})
+	})
+}
+
+exports.parties_user_remove = (req,res) => {
+	Party.findOneAndUpdate({
+		_id : req.params._id
+	}, {$unset: {users: req.body.userId}})
+	.then(party => {
+		if(!party){
+			res.send({'notification': 'Utilisateur enlevé'})
+		}else{
+			res.json({'erreur': 'Impossible d\'enlever l\'utilisateur'})
 		}
 	})
 	.catch(err => {
