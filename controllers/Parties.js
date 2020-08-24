@@ -134,7 +134,7 @@ exports.parties_signup = (req,res) => {
 		if(party){
 			res.send({'notification': 'Inscription éffectué'})
 		}else{
-			res.json({'erreur': 'Impossible de s\'inscrire, utilisateur déjà inscrit ou n\'existe pas '})
+			res.json({'erreur': 'Impossible de s\'inscrire'})
 		}
 	})
 	.catch(err => {
