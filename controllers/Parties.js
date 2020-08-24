@@ -126,12 +126,9 @@ exports.parties_update = (req,res) => {
 }
 
 exports.parties_signup = (req,res) => {
-	const usersData = {
-		users: req.body.userId,
-	}
 	Party.findOneAndUpdate({
 		_id : req.params._id
-	},{$push: {users: usersData}})
+	},{$push: {users: req.body.userId}})
 	.then(party => {
 		if(party){
 			res.send({'notification': 'Inscription éffectué'})
