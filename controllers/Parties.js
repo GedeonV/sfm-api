@@ -68,6 +68,7 @@ exports.parties_get_id = (req,res) => {
 						"state": party.state,
 						"event_code": party.event_code,
 						"theme": party.theme,
+						"users": party.users,
 						"current_song" : party.current_song,
 						"current_user" : party.current_user,
 						"created_at" : party.created_at,
