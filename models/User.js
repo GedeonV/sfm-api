@@ -32,14 +32,6 @@ const UserSchema = new Schema({
 		required: true
 	},
 
-	party: {
-		type: Object
-	},
-
-	songs: {
-		type: Object
-	},
-
 	created_at: {
 		type: Date,
 		default: Date.now
