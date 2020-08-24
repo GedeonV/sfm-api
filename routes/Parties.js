@@ -7,18 +7,21 @@ const cors = require("cors")
 const Party = require("../models/Party")
 parties.use(cors())
 
+process.env.SECRET_KEY = 'sfmprj88'
+const checkAuth = require('../middleware/check-auth')
+
 const PartiesController = require("../controllers/Parties")
 
-parties.post("/create", PartiesController.parties_create)
+parties.post("/create", checkAuth,PartiesController.parties_create)
 
-parties.get('/', PartiesController.parties_get_all)
+parties.get('/', checkAuth,PartiesController.parties_get_all)
 
-parties.get('/event/:_id', PartiesController.parties_get_id)
+parties.get('/event/:_id', checkAuth,PartiesController.parties_get_id)
 
-parties.delete('/:_id', PartiesController.parties_delete)
+parties.delete('/:_id', checkAuth,PartiesController.parties_delete)
 
-parties.put('/event/:_id', PartiesController.parties_update)
+parties.put('/event/:_id', checkAuth,PartiesController.parties_update)
 
-parties.put('/event/:_id/sign', PartiesController.parties_signup)
+parties.put('/event/:_id/sign', checkAuth,PartiesController.parties_signup)
 
 module.exports = parties

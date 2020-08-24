@@ -16,12 +16,12 @@ users.post("/register", UsersController.users_register)
 
 users.post("/login", UsersController.users_login)
 
-users.get('/', UsersController.users_get_all)
+users.get('/', checkAuth, UsersController.users_get_all)
 
-users.get('/user/:_id', UsersController.users_get_id)
+users.get('/user/:_id', checkAuth, UsersController.users_get_id)
 
-users.delete('/:email', UsersController.users_delete)
+users.delete('/:email', checkAuth, UsersController.users_delete)
 
-users.put('/user/:_id', UsersController.users_update)
+users.put('/user/:_id', checkAuth, UsersController.users_update)
 
 module.exports = users
