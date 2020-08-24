@@ -67,9 +67,7 @@ exports.users_login = (req,res) => {
 						"email" : user.email,
 						"first_name" : user.first_name,
 						"last_name" : user.last_name,
-						"nickname" : user.nickname,
-						"birth_date" : user.birth_date,
-						"age" : user.age,
+						"rank": user.rank,
 						"created_at" : user.created_at,
 					}
 				res.send(data_json)
