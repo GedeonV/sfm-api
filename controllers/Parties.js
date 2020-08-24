@@ -130,7 +130,7 @@ exports.parties_signup = (req,res) => {
 
 	Party.findOne({ _id : req.params._id})
 	.then(party => {
-		global userData = {
+		userData = {
 			userId : req.body.userId,
 			order : party.users.length
 		}
