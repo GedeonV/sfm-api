@@ -21,6 +21,11 @@ const UserSchema = new Schema({
 		required: true,
 		unique: true
 	},
+
+	rank: {
+		type: Number,
+		default: 0
+	}
 	mobile : {
 		type: String,
 		required: true

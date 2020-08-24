@@ -7,8 +7,8 @@ const cors = require("cors")
 const User = require("../models/User")
 users.use(cors())
 
-//process.env.SECRET_KEY = 'sfm88'
-//const checkAuth = require('../middleware/check-auth')
+process.env.SECRET_KEY = 'sfmprj88'
+const checkAuth = require('../middleware/check-auth')
 
 const UsersController = require("../controllers/Users")
 
