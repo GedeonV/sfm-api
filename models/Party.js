@@ -27,6 +27,11 @@ const PartySchema = new Schema({
 	state : {
 		type: Boolean
 	},
+
+	users : {
+		type: mongoose.Schema.Types.ObjectId, ref: 'users'
+	},
+
 	current_song : {
 		type: Object
 	},

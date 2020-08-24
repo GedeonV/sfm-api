@@ -123,3 +123,23 @@ exports.parties_update = (req,res) => {
 		res.json({'erreur': err})
 	})
 }
+
+exports.parties_signup = (req,res) => {
+	const partyUpdatedDate = {
+		users: req.body.userId,
+	}
+	Party.findOneAndUpdate({
+		_id : req.params._id
+	}, partyUpdatedData)
+	.then(party => {
+		if(party){
+			res.send({'notification': 'Inscription éffectué'})
+		}else{
+			res.json({'erreur': 'Impossible de s\'inscrire'})
+		}
+	})
+	.catch(err => {
+		res.json({'erreur': err})
+	})
+
+}
