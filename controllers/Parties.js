@@ -127,6 +127,7 @@ exports.parties_update = (req,res) => {
 }
 
 exports.parties_signup = (req,res) => {
+	console.log(Party.users.length)
 	Party.findOneAndUpdate({
 		_id : req.params._id
 	},{$push: {users: req.body.userId}})
