@@ -1,8 +1,10 @@
 const cors = require("cors")
-//const jwt = require("jsonwebtoken")
-//const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs")
 const User = require("../models/User")
 
+process.env.SECRET_KEY = 'sfmprj88'
+const checkAuth = require('../middleware/check-auth')
 
 exports.users_register = (req,res) => {
 	const today = new Date()
@@ -11,6 +13,7 @@ exports.users_register = (req,res) => {
 		last_name: req.body.last_name,
 		location : req.body.location,
 		email: req.body.email,
+		password: req.body.password,
 		mobile: req.body.mobile,
 		party: req.body.party,
 		songs: req.body.songs,
@@ -21,6 +24,8 @@ exports.users_register = (req,res) => {
 	})
 	.then(user => {
 		if(!user){
+			bcrypt.hash(req.body.password, 10, (err,hash) => {
+			userData.password = hash
 			User.create(userData)
 				.then(user => {
 					res.json({'status': user.email + '  enregistrée'})
@@ -28,7 +33,8 @@ exports.users_register = (req,res) => {
 				.catch(err => {
 					res.json({'erreur': err})
 				})
-			}
+			})
+		}
 		else{
 			res.json({'erreur': 'Utilisateur existe déjà'})
 		}
@@ -37,6 +43,48 @@ exports.users_register = (req,res) => {
 		res.json({'erreur': err})
 	})
 }
+
+exports.users_login = (req,res) => {
+	User.findOne({
+		email: req.body.email
+	})
+	.then(user => {
+		if(user){
+			if(bcrypt.compareSync(req.body.password, user.password)){
+				const payload = {
+					_id: user._id,
+					first_name: user.first_name,
+					last_name: user.last_name,
+					email: user.email,
+				}
+				let token = jwt.sign(payload, process.env.SECRET_KEY, {
+					expiresIn: 3600
+				})
+				let data_json = 
+					{
+						"token" : token,
+						"user_id": user._id,
+						"email" : user.email,
+						"first_name" : user.first_name,
+						"last_name" : user.last_name,
+						"nickname" : user.nickname,
+						"birth_date" : user.birth_date,
+						"age" : user.age,
+						"created_at" : user.created_at,
+					}
+				res.send(data_json)
+			}else{
+				res.json({error: 'Mauvais mot de passe'})
+			}
+		}else{
+			res.json({error: 'User does not exist'})
+		}
+	})
+	.catch(err => {
+		res.json({'error': err})
+	})
+}
+
 
 exports.users_get_all = (req,res) => {
 	User.find({})

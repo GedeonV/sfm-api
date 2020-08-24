@@ -14,6 +14,8 @@ const UsersController = require("../controllers/Users")
 
 users.post("/register", UsersController.users_register)
 
+users.post("/login", UsersController.users_login)
+
 users.get('/', UsersController.users_get_all)
 
 users.get('/user/:_id', UsersController.users_get_id)
