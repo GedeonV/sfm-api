@@ -133,7 +133,7 @@ exports.parties_signup = (req,res) => {
 		res.json({'message': party.users.length})
 	})
 	
-	await Party.findOneAndUpdate({
+	Party.findOneAndUpdate({
 		_id : req.params._id
 	},{$push: {users: req.body.userId}})
 	.then(party => {
