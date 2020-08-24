@@ -39,6 +39,7 @@ exports.parties_create = (req,res) => {
 
 exports.parties_get_all = (req,res) => {
 	Party.find({})
+	.populate('users')
 	.then(party => {
 		if(party){
 			res.send(party)
