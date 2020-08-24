@@ -131,20 +131,19 @@ exports.parties_signup = (req,res) => {
 	Party.findOne({ _id : req.params._id})
 	.then(party => {
 		res.json({'message': party.users.length})
-	})
 	
-	Party.findOneAndUpdate({
-		_id : req.params._id
-	},{$push: {users: req.body.userId}})
-	.then(party => {
-		if(party){
-			res.send({'notification': 'Inscription éffectué'})
-		}else{
-			res.json({'erreur': 'Impossible de s\'inscrire'})
-		}
+		Party.findOneAndUpdate({
+			_id : req.params._id
+		},{$push: {users: req.body.userId, party.users.length}})
+		.then(party => {
+			if(party){
+				res.send({'notification': 'Inscription éffectué'})
+			}else{
+				res.json({'erreur': 'Impossible de s\'inscrire'})
+			}
+		})
+		.catch(err => {
+			res.json({'erreur': err})
+		})
 	})
-	.catch(err => {
-		res.json({'erreur': err})
-	})
-
 }
