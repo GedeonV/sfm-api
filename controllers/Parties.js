@@ -55,7 +55,7 @@ exports.parties_get_id = (req,res) => {
 	Party.findOne({
 		_id : req.params._id
 	})
-	.populate('users','')
+	.populate('users')
 	.then(party => {
 		if(party){
 				let data_json = 
@@ -127,11 +127,11 @@ exports.parties_update = (req,res) => {
 }
 
 exports.parties_signup = (req,res) => {
-	console.log(Party.users.length)
 	Party.findOneAndUpdate({
 		_id : req.params._id
 	},{$push: {users: req.body.userId}})
 	.then(party => {
+		console.log(party.users.length)
 		if(party){
 			res.send({'notification': 'Inscription éffectué'})
 		}else{
