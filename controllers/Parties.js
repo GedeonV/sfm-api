@@ -129,12 +129,12 @@ exports.parties_update = (req,res) => {
 exports.parties_signup = (req,res) => {
 	Party.findOneAndUpdate({
 		_id : req.params._id
-	},{$push: {users: req.body.userId}})
+	},{$addToSet: {users: req.body.userId}})
 	.then(party => {
-		if(!party){
-			res.json({'erreur': 'Impossible de s\'inscrire, utilisateur déjà inscrit ou n\'existe pas '})
-		}else{
+		if(party){
 			res.send({'notification': 'Inscription éffectué'})
+		}else{
+			res.json({'erreur': 'Impossible de s\'inscrire, utilisateur déjà inscrit ou n\'existe pas '})
 		}
 	})
 	.catch(err => {
