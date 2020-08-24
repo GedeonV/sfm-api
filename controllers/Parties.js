@@ -131,7 +131,7 @@ exports.parties_signup = (req,res) => {
 	}
 	Party.findOneAndUpdate({
 		_id : req.params._id
-	}, usersData)
+	}{$push: {users: user}}, usersData)
 	.then(party => {
 		if(party){
 			res.send({'notification': 'Inscription éffectué'})
