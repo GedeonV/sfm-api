@@ -25,7 +25,8 @@ const UserSchema = new Schema({
 	rank: {
 		type: Number,
 		default: 0
-	}
+	},
+	
 	mobile : {
 		type: String,
 		required: true
