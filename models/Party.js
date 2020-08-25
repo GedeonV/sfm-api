@@ -26,6 +26,7 @@ const PartySchema = new Schema({
 	},
 	state : {
 		type: Number,
+		max: 2
 	},
 
 	users : [{
