@@ -29,11 +29,9 @@ const PartySchema = new Schema({
 		min: 0,
 		max: 2
 	},
-
 	users : [{
 		type: mongoose.Schema.Types.ObjectId, ref: 'users'
 	}],
-
 	current_song : {
 		type: Object
 	},
