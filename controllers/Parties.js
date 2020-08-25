@@ -132,23 +132,14 @@ exports.parties_signup = (req,res) => {
 		_id : req.params._id
 	},{$addToSet: {users: req.body.userId}})
 	.then(party => {
-		if(party){
-			res.send({'notification': 'Inscription éffectué'})
-		}else{
-			res.json({'erreur': 'Impossible de s\'inscrire'})
-		}
-	})
-	.catch(err => {
-		res.json({'erreur': err})
-	})
-
-	User.findOneAndUpdate({ _id : req.body.userId},{$addToSet: {parties: req.params._id}})
-	.then(party => {
-		if(party){
-			res.json({'notification': 'Utilisateur inscrit'})
-		}else{
-			res.json({'erreur': 'Impossible d\'inscrire l\'utilisateur'})
-		}
+		User.findOneAndUpdate({ _id : req.body.userId},{$addToSet: {parties: req.params._id}})
+			.then(party => {
+				if(party){
+					res.json({'notification': 'Utilisateur inscrit'})
+				}else{
+					res.json({'erreur': 'Impossible d\'inscrire l\'utilisateur'})
+				}
+			})
 	})
 	.catch(err => {
 		res.json({'erreur': err})
