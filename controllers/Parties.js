@@ -1,5 +1,6 @@
 const cors = require("cors")
 const Party = require("../models/Party");
+const User = require("../models/User");
 
 exports.parties_create = (req,res) => {
 	const today = new Date()

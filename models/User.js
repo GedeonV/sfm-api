@@ -32,6 +32,10 @@ const UserSchema = new Schema({
 		required: true
 	},
 
+	parties : [{
+		type: type: mongoose.Schema.Types.ObjectId, ref: 'parties'
+	}]
+
 	created_at: {
 		type: Date,
 		default: Date.now
