@@ -135,6 +135,10 @@ exports.parties_status = (req,res) => {
 				res.json({'notification': 'Evènement démarré'})
 			} else if (req.body.state == 2){
 				res.json({'notification': 'Evènement terminé'})
+			} else if(req.body.state == 0){
+				res.json({'notification': 'Evènement non commencé'})
+			} else if(req.body.state > 2){
+				res.json({'notification': 'Etat inconnu'})
 			}
 		}else{
 			res.json({'erreur': 'Impossible de changer l\'état'})
