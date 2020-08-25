@@ -128,7 +128,6 @@ exports.parties_update = (req,res) => {
 }
 
 exports.parties_status = (req,res) => {
-
 	Party.findOneAndUpdate({_id : req.params._id},{state: req.body.state})
 	.then(party => {
 		if(party){
