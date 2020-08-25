@@ -133,13 +133,13 @@ exports.parties_signup = (req,res) => {
 	},{$addToSet: {users: req.body.userId}})
 	.then(party => {
 		User.findOneAndUpdate({ _id : req.body.userId},{$addToSet: {parties: req.params._id}})
-			.then(party => {
-				if(party){
-					res.json({'notification': 'Utilisateur inscrit'})
-				}else{
-					res.json({'erreur': 'Impossible d\'inscrire l\'utilisateur'})
-				}
-			})
+		.then(party => {
+			if(party){
+				res.json({'notification': 'Utilisateur inscrit'})
+			}else{
+				res.json({'erreur': 'Impossible d\'inscrire l\'utilisateur'})
+			}
+		})
 	})
 	.catch(err => {
 		res.json({'erreur': err})
@@ -151,11 +151,14 @@ exports.parties_user_remove = (req,res) => {
 		_id : req.params._id
 	}, {$pull: {users: req.body.userId}})
 	.then(party => {
-		if(party){
-			res.send({'notification': 'Utilisateur enlevé'})
-		}else{
-			res.json({'erreur': 'Impossible d\'enlever l\'utilisateur'})
-		}
+		User.findOneAndUpdate({ _id : req.body.userId},{$pull: {parties: req.params._id}})
+		.then(party => {
+			if(party){
+				res.send({'notification': 'Utilisateur enlevé'})
+			}else{
+				res.json({'erreur': 'Impossible d\'enlever l\'utilisateur'})
+			}
+		})
 	})
 	.catch(err => {
 		res.json({'erreur': err})
