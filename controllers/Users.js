@@ -112,8 +112,7 @@ exports.users_get_id = (req,res) => {
 						"first_name" : user.first_name,
 						"last_name" : user.last_name,
 						"location" : user.location,
-						"party" : user.party,
-						"songs" : user.songs,
+						"parties" : user.parties,
 						"created_at" : user.created_at,
 					}
 				res.send(data_json)
