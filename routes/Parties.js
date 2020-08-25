@@ -22,6 +22,8 @@ parties.delete('/:_id', checkAuth,PartiesController.parties_delete)
 
 parties.put('/event/:_id', checkAuth,PartiesController.parties_update)
 
+parties.put('/event/:_id/state', checkAuth,PartiesController.parties_status)
+
 parties.post('/event/:_id/sign', checkAuth,PartiesController.parties_signup)
 
 parties.delete('/event/:_id/remove', checkAuth,PartiesController.parties_user_remove)
