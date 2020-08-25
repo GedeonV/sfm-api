@@ -15,8 +15,6 @@ exports.users_register = (req,res) => {
 		email: req.body.email,
 		password: req.body.password,
 		mobile: req.body.mobile,
-		party: req.body.party,
-		songs: req.body.songs,
 		created: today
 	}
 	User.findOne({
@@ -102,6 +100,7 @@ exports.users_get_id = (req,res) => {
 	User.findOne({
 		_id : req.params._id
 	})
+	.populate('parties')
 	.then(user => {
 		if(user){
 				let data_json = 
@@ -152,8 +151,6 @@ exports.users_update = (req,res) => {
 		email: req.body.email,
 		location: req.body.location,
 		mobile: req.body.mobile,
-		party: req.body.party,
-		songs: req.body.songs,
 		updated_at: today,
 	}
 
