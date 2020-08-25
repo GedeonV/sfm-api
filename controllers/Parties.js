@@ -131,11 +131,15 @@ exports.parties_status = (req,res) => {
 
 	Party.findOneAndUpdate({_id : req.params._id},{state: req.body.state})
 	.then(party => {
-			if(party.state == 1){
+		if(party){
+			if(req.body.state == 1){
 				res.json({'notification': 'Evènement démarré'})
-			} else if (party.state == 2){
+			} else if (req.body.state == 2){
 				res.json({'notification': 'Evènement terminé'})
 			}
+		}else{
+			res.json({'erreur': 'Impossible de changer l\'état'})
+		}
 	})
 	.catch(err => {
 		res.json({'erreur': err})
