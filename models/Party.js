@@ -25,7 +25,7 @@ const PartySchema = new Schema({
 		type: String,
 	},
 	state : {
-		type: Boolean
+		type: Number,
 	},
 
 	users : [{
