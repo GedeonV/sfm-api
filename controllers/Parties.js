@@ -134,8 +134,8 @@ exports.parties_status = (req,res) => {
 	Party.findOneAndUpdate({_id : req.params._id},partyStatus)
 	.then(party => {
 		if(party){
-			console.log(party)
-			/*if(party.state == 1){
+			/*console.log(party)
+			if(party.state == 1){
 				res.json({'notification': 'Evènement démarré'})
 			} else if (party.state == 2){
 				res.json({'notification': 'Evènement terminé'})
