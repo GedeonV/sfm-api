@@ -141,6 +141,8 @@ exports.parties_signup = (req,res) => {
 	.catch(err => {
 		res.json({'erreur': err})
 	})
+
+	User.findOneAndUpdate({ _id : req.body.userId},{$addToSet: {parties: req.params._id}})
 }
 
 exports.parties_user_remove = (req,res) => {

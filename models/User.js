@@ -34,7 +34,7 @@ const UserSchema = new Schema({
 
 	parties : [{
 		type: type: mongoose.Schema.Types.ObjectId, ref: 'parties'
-	}]
+	}],
 
 	created_at: {
 		type: Date,
