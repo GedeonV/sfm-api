@@ -144,7 +144,6 @@ exports.users_update = (req, res) => {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email: req.body.email,
-    location: req.body.location,
     mobile: req.body.mobile,
     updated_at: today,
   };
