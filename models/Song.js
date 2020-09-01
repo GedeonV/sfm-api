@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 const SongSchema = new Schema({
   title: {
     type: String,
+    required: true,
+    unique: true,
   },
   artist: {
     type: String,
@@ -12,7 +14,7 @@ const SongSchema = new Schema({
     type: String,
   },
   date: {
-    type: Date,
+    type: String,
   },
   style: {
     type: String,

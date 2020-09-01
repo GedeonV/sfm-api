@@ -13,7 +13,19 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype == "audio/mpeg") {
+    cb(null, true);
+  } else {
+    cb(new Error("Format invalide"), false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 10 },
+  fileFilter: fileFilter,
+});
 
 const Song = require("../models/Song");
 songs.use(cors());
