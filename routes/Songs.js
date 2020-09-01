@@ -22,6 +22,6 @@ const checkAuth = require("../middleware/check-auth");
 
 const SongsController = require("../controllers/Songs");
 
-songs.post("/upload", checkAuth, upload.single("songFile"), SongsController);
+songs.post("/upload", upload.single("songFile"), SongsController);
 
 module.exports = songs;
