@@ -1,6 +1,7 @@
 const cors = require("cors");
 const Song = require("../models/Song");
 const fs = require("fs");
+const songs = require("../routes/Songs");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -8,6 +9,47 @@ cloudinary.config({
   api_key: "928328299487922",
   api_secret: "ml3tMM05ePIw8-z8zUYOhEw4nZs",
 });
+
+exports.songs_get_all = (req, res) => {
+  Song.find({})
+    .then((song) => {
+      if (song) {
+        res.json(song);
+      } else {
+        res.json({ error: "Aucune donnée" });
+      }
+    })
+    .catch((err) => {
+      res.json({ error: err });
+    });
+};
+
+exports.songs_get_id = (req, res) => {
+  Song.findOne({
+    _id: req.params._id,
+  })
+    .then((song) => {
+      if (song) {
+        let data_json = {
+          song_id: song._id,
+          title: song.title,
+          artist: song.artist,
+          album: song.album,
+          date: song.date,
+          style: song.style,
+          time: song.time,
+          path: song.path,
+          created_at: song.created_at,
+        };
+        res.json(data_json);
+      } else {
+        res.json({ erreur: "Cette musique n'existe pas" });
+      }
+    })
+    .catch((err) => {
+      res.json({ erreur: err });
+    });
+};
 
 exports.songs_upload = (req, res) => {
   console.log(req.file);

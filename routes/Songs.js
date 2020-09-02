@@ -32,6 +32,10 @@ const upload = multer({
 const Song = require("../models/Song");
 songs.use(cors());
 
+songs.get("/", checkAuth, SongsController.songs_get_all);
+
+songs.get("/song/:_id", checkAuth, SongsController.songs_get_id);
+
 songs.post(
   "/upload",
   checkAuth,
