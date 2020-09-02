@@ -36,7 +36,7 @@ songs.get("/", checkAuth, SongsController.songs_get_all);
 
 songs.get("/song/:_id", checkAuth, SongsController.songs_get_id);
 
-songs.delete("/song/:_id", checkAuth, SongsController.songs_delete);
+songs.delete("/:_id", checkAuth, SongsController.songs_delete);
 
 songs.post(
   "/upload",
