@@ -1,8 +1,10 @@
 const express = require("express");
 const songs = express.Router();
 const cors = require("cors");
-const path = require("path");
 const multer = require("multer");
+process.env.SECRET_KEY = "sfmprj88";
+const checkAuth = require("../middleware/check-auth");
+const SongsController = require("../controllers/Songs");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -29,11 +31,6 @@ const upload = multer({
 
 const Song = require("../models/Song");
 songs.use(cors());
-
-process.env.SECRET_KEY = "sfmprj88";
-const checkAuth = require("../middleware/check-auth");
-
-const SongsController = require("../controllers/Songs");
 
 songs.post(
   "/upload",

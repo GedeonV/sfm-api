@@ -5,7 +5,6 @@ var app = express();
 var mongoose = require("mongoose");
 var port = process.env.PORT || 5000;
 
-app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
