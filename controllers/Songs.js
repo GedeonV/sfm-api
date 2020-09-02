@@ -95,10 +95,10 @@ exports.songs_upload = (req, res) => {
           }
         );
       } else {
-        res.json({ erreur: "Ce son existe déjà" });
+        res.json({ error: "Ce son existe déjà" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
