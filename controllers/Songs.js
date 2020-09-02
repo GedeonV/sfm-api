@@ -43,11 +43,11 @@ exports.songs_get_id = (req, res) => {
         };
         res.json(data_json);
       } else {
-        res.json({ erreur: "Cette musique n'existe pas" });
+        res.json({ error: "Cette musique n'existe pas" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 

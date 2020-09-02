@@ -32,4 +32,10 @@ parties.post(
   PartiesController.parties_user_remove
 );
 
+parties.post(
+  "/event/:_id/song",
+  checkAuth,
+  PartiesController.parties_add_songs
+);
+
 module.exports = parties;

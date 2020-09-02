@@ -29,15 +29,15 @@ exports.users_register = (req, res) => {
               res.json({ status: user.email + "  enregistrée" });
             })
             .catch((err) => {
-              res.json({ erreur: err });
+              res.json({ error: err });
             });
         });
       } else {
-        res.json({ erreur: "Utilisateur existe déjà" });
+        res.json({ error: "Utilisateur existe déjà" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -86,11 +86,11 @@ exports.users_get_all = (req, res) => {
       if (user) {
         res.send(user);
       } else {
-        res.json({ erreur: "Aucune donnée" });
+        res.json({ error: "Aucune donnée" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -114,11 +114,11 @@ exports.users_get_id = (req, res) => {
         };
         res.send(data_json);
       } else {
-        res.json({ erreur: "L'utilisateur n'existe pas" });
+        res.json({ error: "L'utilisateur n'existe pas" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -130,11 +130,11 @@ exports.users_delete = (req, res) => {
       if (user) {
         res.send({ notification: "Utilisateur supprimé" });
       } else {
-        res.json({ erreur: "Impossible de supprimé" });
+        res.json({ error: "Impossible de supprimé" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -158,10 +158,10 @@ exports.users_update = (req, res) => {
       if (user) {
         res.send({ notification: "Utilisateur est modifié" });
       } else {
-        res.json({ erreur: "Impossible de mettre à jour" });
+        res.json({ error: "Impossible de mettre à jour" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };

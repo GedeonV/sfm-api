@@ -1,6 +1,7 @@
 const cors = require("cors");
 const Party = require("../models/Party");
 const User = require("../models/User");
+const Songs = require("../models/Song");
 
 exports.parties_create = (req, res) => {
   const today = new Date();
@@ -55,7 +56,7 @@ exports.parties_get_id = (req, res) => {
   Party.findOne({
     _id: req.params._id,
   })
-    .populate("users")
+    .populate("users", "songs")
     .then((party) => {
       if (party) {
         let data_json = {
@@ -68,17 +69,18 @@ exports.parties_get_id = (req, res) => {
           event_code: party.event_code,
           theme: party.theme,
           users: party.users,
+          songs: party.songs,
           current_song: party.current_song,
           current_user: party.current_user,
           created_at: party.created_at,
         };
         res.send(data_json);
       } else {
-        res.json({ erreur: "L'événement n'existe pas" });
+        res.json({ error: "L'événement n'existe pas" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -90,11 +92,11 @@ exports.parties_delete = (req, res) => {
       if (party) {
         res.send({ notification: "Evénèment supprimé" });
       } else {
-        res.json({ erreur: "Impossible de supprimé" });
+        res.json({ error: "Impossible de supprimé" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -120,11 +122,11 @@ exports.parties_update = (req, res) => {
       if (party) {
         res.send({ notification: "Evènement modifié" });
       } else {
-        res.json({ erreur: "Impossible de mettre à jour" });
+        res.json({ error: "Impossible de mettre à jour" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -142,11 +144,11 @@ exports.parties_status = (req, res) => {
           res.json({ notification: "Etat inconnu" });
         }
       } else {
-        res.json({ erreur: "Impossible de changer l'état" });
+        res.json({ error: "Impossible de changer l'état" });
       }
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -165,12 +167,12 @@ exports.parties_signup = (req, res) => {
         if (party) {
           res.json({ notification: "Utilisateur inscrit" });
         } else {
-          res.json({ erreur: "Impossible d'inscrire l'utilisateur" });
+          res.json({ error: "Impossible d'inscrire l'utilisateur" });
         }
       });
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
     });
 };
 
@@ -189,11 +191,30 @@ exports.parties_user_remove = (req, res) => {
         if (party) {
           res.send({ notification: "Utilisateur enlevé" });
         } else {
-          res.json({ erreur: "Impossible d'enlever l'utilisateur" });
+          res.json({ error: "Impossible d'enlever l'utilisateur" });
         }
       });
     })
     .catch((err) => {
-      res.json({ erreur: err });
+      res.json({ error: err });
+    });
+};
+
+exports.parties_add_songs = (req, res) => {
+  Party.findOneAndUpdate(
+    {
+      _id: req.params._id,
+    },
+    { $pull: { songs: req.body.songId } }
+  )
+    .then((party) => {
+      if (party) {
+        res.json({ notification: "Musique ajouté" });
+      } else {
+        res.json({ error: "Impossible d'ajouter une musique" });
+      }
+    })
+    .catch((err) => {
+      res.json({ error: err });
     });
 };

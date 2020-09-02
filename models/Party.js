@@ -36,6 +36,14 @@ const PartySchema = new Schema({
       ref: "users",
     },
   ],
+
+  songs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "songs",
+    },
+  ],
+
   current_song: {
     type: Object,
   },
