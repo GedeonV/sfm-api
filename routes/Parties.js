@@ -27,15 +27,21 @@ parties.put("/event/:_id/state", checkAuth, PartiesController.parties_status);
 parties.post("/event/:_id/sign", checkAuth, PartiesController.parties_signup);
 
 parties.post(
-  "/event/:_id/remove",
+  "/event/:_id/remove_user",
   checkAuth,
-  PartiesController.parties_user_remove
+  PartiesController.parties_remove_user
 );
 
 parties.post(
   "/event/:_id/song",
   checkAuth,
   PartiesController.parties_add_songs
+);
+
+parties.post(
+  "/event/:_id/remove_song",
+  checkAuth,
+  PartiesController.parties_remove_songs
 );
 
 module.exports = parties;

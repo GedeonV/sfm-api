@@ -177,7 +177,7 @@ exports.parties_signup = (req, res) => {
     });
 };
 
-exports.parties_user_remove = (req, res) => {
+exports.parties_remove_user = (req, res) => {
   Party.findOneAndUpdate(
     {
       _id: req.params._id,
@@ -213,6 +213,25 @@ exports.parties_add_songs = (req, res) => {
         res.json({ notification: "Musique ajouté" });
       } else {
         res.json({ error: "Impossible d'ajouter une musique" });
+      }
+    })
+    .catch((err) => {
+      res.json({ error: err });
+    });
+};
+
+exports.parties_remove_songs = (req, res) => {
+  Party.findOneAndUpdate(
+    {
+      _id: req.params._id,
+    },
+    { $pull: { songs: req.body.songId } }
+  )
+    .then((party) => {
+      if (party) {
+        res.json({ notification: "Musique enlevée" });
+      } else {
+        res.json({ error: "Impossible d'enlevé la musique" });
       }
     })
     .catch((err) => {
