@@ -1,5 +1,13 @@
 const cors = require("cors");
 const Song = require("../models/Song");
+const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "sfm88",
+  api_key: "928328299487922",
+  api_secret: "ml3tMM05ePIw8-z8zUYOhEw4nZs",
+});
 
 exports.songs_upload = (req, res) => {
   console.log(req.file);
