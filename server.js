@@ -4,7 +4,6 @@ var bodyParser = require("body-parser");
 var app = express();
 var mongoose = require("mongoose");
 var port = process.env.PORT || 5000;
-var cloudinary = require("cloudinary").v2;
 
 app.use("/uploads", express.static("uploads"));
 app.use(bodyParser.json());
@@ -42,10 +41,4 @@ app.use("/parties", Parties);
 
 const server = app.listen(port, function () {
   console.log("Server is running on port: " + port);
-});
-
-cloudinary.config({
-  cloud_name: "sfm88",
-  api_key: "928328299487922",
-  api_secret: "ml3tMM05ePIw8-z8zUYOhEw4nZs",
 });
