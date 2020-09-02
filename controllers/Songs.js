@@ -51,6 +51,22 @@ exports.songs_get_id = (req, res) => {
     });
 };
 
+exports.songs_delete = (req, res) => {
+  Song.findOneAndRemove({
+    _id: req.params._id,
+  })
+    .then((song) => {
+      if (song) {
+        res.json({ notification: "Musique supprimée" });
+      } else {
+        res.json({ error: "Impossible de supprimé" });
+      }
+    })
+    .catch((err) => {
+      res.json({ error: err });
+    });
+};
+
 exports.songs_upload = (req, res) => {
   console.log(req.file);
   const today = new Date();
