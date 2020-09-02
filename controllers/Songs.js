@@ -68,7 +68,7 @@ exports.songs_upload = (req, res) => {
           (err, song) => {
             if (err) {
               console.log(err);
-              res.json({ erreur: err });
+              res.json({ error: err });
             } else {
               console.log("file uploaded to Cloudinary");
               console.log(song);
