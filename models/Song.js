@@ -18,11 +18,6 @@ const SongSchema = new Schema({
   },
   style: {
     type: String,
-    required: true,
-  },
-  time: {
-    type: String,
-    required: true,
   },
   path: {
     type: String,
