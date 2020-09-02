@@ -84,7 +84,8 @@ exports.songs_upload = (req, res) => {
               };
               Song.create(songData)
                 .then((song) => {
-                  res.json({ status: song.title + "  enregistrée" });
+                  res.json({ notification: song.title + "  enregistré" });
+                  res.json(song);
                 })
                 .catch((err) => {
                   res.json({ error: err });
