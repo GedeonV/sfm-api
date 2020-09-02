@@ -14,13 +14,6 @@ exports.songs_upload = (req, res) => {
     path: req.file.path,
     created: today,
   };
-  const cloudinary = require("cloudinary").v2;
-
-  cloudinary.config({
-    cloud_name: "sfm88",
-    api_key: "928328299487922",
-    api_secret: "ml3tMM05ePIw8-z8zUYOhEw4nZs",
-  });
 
   cloudinary.uploader.upload(
     req.file.path,
@@ -32,7 +25,7 @@ exports.songs_upload = (req, res) => {
         console.log("file uploaded to Cloudinary");
         console.log(song);
         // remove file from server
-        const fs = require("fs");
+
         fs.unlinkSync(req.file.path);
       }
     }

@@ -3,6 +3,14 @@ const songs = express.Router();
 const cors = require("cors");
 const path = require("path");
 const multer = require("multer");
+const fs = require("fs");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "sfm88",
+  api_key: "928328299487922",
+  api_secret: "ml3tMM05ePIw8-z8zUYOhEw4nZs",
+});
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
