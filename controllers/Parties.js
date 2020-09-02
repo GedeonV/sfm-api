@@ -205,7 +205,7 @@ exports.parties_add_songs = (req, res) => {
     {
       _id: req.params._id,
     },
-    { $pull: { songs: req.body.songId } }
+    { $addToSet: { songs: req.body.songId } }
   )
     .then((party) => {
       if (party) {
