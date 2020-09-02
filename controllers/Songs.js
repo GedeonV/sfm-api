@@ -87,7 +87,7 @@ exports.songs_upload = (req, res) => {
                   res.json({ status: song.title + "  enregistrée" });
                 })
                 .catch((err) => {
-                  res.json({ erreur: err });
+                  res.json({ error: err });
                 });
               // remove file from server
               fs.unlinkSync(req.file.path);
