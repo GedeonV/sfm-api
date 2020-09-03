@@ -194,9 +194,6 @@ exports.parties_unsub_user = (req, res) => {
         { _id: req.body.userId },
         {
           $pull: { parties: req.params._id },
-        },
-        {
-          $unset: { songs },
         }
       ).then((party) => {
         if (party) {
