@@ -207,11 +207,11 @@ exports.parties_unsub_user = (req, res) => {
         ).then((party) => {
           if (party) {
             res.json({
-              notification: "Musique associé à l'utilisateur enlevée",
+              notification: "Musiques associé à l'utilisateur enlevées",
             });
           } else {
             res.json({
-              error: "Impossible d'enlevé les musiques de l'utilisateur",
+              error: "Impossible d'enlever les musiques de l'utilisateur",
             });
           }
         });
