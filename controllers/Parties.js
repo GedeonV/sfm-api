@@ -196,25 +196,15 @@ exports.parties_unsub_user = (req, res) => {
           $pull: { parties: req.params._id },
         }
       ).then((party) => {
+        User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $unset: { songs: true } }
+        );
         if (party) {
           res.json({ notification: "Utilisateur désinscrit de l'évenement" });
         } else {
           res.json({ error: "Impossible de désinscrire l'utilisateur" });
         }
-        User.findOneAndUpdate(
-          { _id: req.body.userId },
-          { $unset: { songs: true } }
-        ).then((party) => {
-          if (party) {
-            res.json({
-              notification: "Musique associé à l'utilisateur enlevée",
-            });
-          } else {
-            res.json({
-              error: "Impossible d'enlevé les musiques de l'utilisateur",
-            });
-          }
-        });
       });
     })
     .catch((err) => {
