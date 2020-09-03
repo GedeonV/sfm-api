@@ -189,19 +189,32 @@ exports.parties_unsub_user = (req, res) => {
     },
     { $pull: { users: req.body.userId } }
   )
-    .then((party) => {
+    .then(() => {
       User.findOneAndUpdate(
         { _id: req.body.userId },
-        { $unset: { songs: true } },
         {
           $pull: { parties: req.params._id },
         }
       ).then((party) => {
         if (party) {
-          res.send({ notification: "Utilisateur enlevé" });
+          res.json({ notification: "Utilisateur désinscrit de l'évenement" });
         } else {
-          res.json({ error: "Impossible d'enlever l'utilisateur" });
+          res.json({ error: "Impossible de désinscrire l'utilisateur" });
         }
+        User.findOneAndUpdate(
+          { _id: req.body.userId },
+          { $unset: { songs: true } }
+        ).then((party) => {
+          if (party) {
+            res.json({
+              notification: "Musique associé à l'utilisateur enlevée",
+            });
+          } else {
+            res.json({
+              error: "Impossible d'enlevé les musiques de l'utilisateur",
+            });
+          }
+        });
       });
     })
     .catch((err) => {
@@ -246,3 +259,9 @@ exports.parties_remove_songs = (req, res) => {
       res.json({ error: err });
     });
 };
+
+/* if (party) {
+          res.send({ notification: "Utilisateur enlevé" });
+        } else {
+          res.json({ error: "Impossible d'enlever l'utilisateur" });
+        }*/
