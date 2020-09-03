@@ -99,6 +99,7 @@ exports.users_get_id = (req, res) => {
     _id: req.params._id,
   })
     .populate("parties")
+    .populate("songs")
     .then((user) => {
       if (user) {
         let data_json = {
