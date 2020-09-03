@@ -192,7 +192,9 @@ exports.parties_remove_user = (req, res) => {
     .then((party) => {
       User.findOneAndUpdate(
         { _id: req.body.userId },
-        { $pull: { parties: req.params._id } }
+        {
+          $pull: { parties: req.params._id, songs: { $each: req.body.songId } },
+        }
       ).then((party) => {
         if (party) {
           res.send({ notification: "Utilisateur enlevé" });
