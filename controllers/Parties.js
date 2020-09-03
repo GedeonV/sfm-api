@@ -192,10 +192,10 @@ exports.parties_unsub_user = (req, res) => {
     .then((party) => {
       User.findOneAndUpdate(
         { _id: req.body.userId },
+        { $unset: { songs: true } },
         {
           $pull: { parties: req.params._id },
-        },
-        { $unset: { songs: true } }
+        }
       ).then((party) => {
         if (party) {
           res.send({ notification: "Utilisateur enlevé" });
