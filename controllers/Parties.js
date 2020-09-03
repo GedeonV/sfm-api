@@ -182,7 +182,7 @@ exports.parties_signup = (req, res) => {
     });
 };
 
-exports.parties_remove_user = (req, res) => {
+exports.parties_unsub_user = (req, res) => {
   Party.findOneAndUpdate(
     {
       _id: req.params._id,
@@ -193,9 +193,8 @@ exports.parties_remove_user = (req, res) => {
       User.findOneAndUpdate(
         { _id: req.body.userId },
         {
-          $pull: { parties: req.params._id },
-        },
-        { $pullAll: { songs } }
+          $pull: { parties: req.params._id, songs: { $each: req.body.songId } },
+        }
       ).then((party) => {
         if (party) {
           res.send({ notification: "Utilisateur enlevé" });

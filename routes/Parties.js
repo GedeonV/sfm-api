@@ -27,9 +27,9 @@ parties.put("/event/:_id/state", checkAuth, PartiesController.parties_status);
 parties.post("/event/:_id/sign", checkAuth, PartiesController.parties_signup);
 
 parties.post(
-  "/event/:_id/remove_user",
+  "/event/:_id/unsub_user",
   checkAuth,
-  PartiesController.parties_remove_user
+  PartiesController.parties_unsub_user
 );
 
 parties.post(
