@@ -163,7 +163,11 @@ exports.parties_signup = (req, res) => {
     .then((party) => {
       User.findOneAndUpdate(
         { _id: req.body.userId },
-        { $addToSet: { parties: req.params._id, songs: req.body.songId } }
+        {
+          $addToSet: {
+            parties: { $each: req.params._id, songs: req.body.songId },
+          },
+        }
       ).then((party) => {
         if (party) {
           res.json({ notification: "Utilisateur inscrit" });
