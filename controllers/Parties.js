@@ -195,7 +195,7 @@ exports.parties_unsub_user = (req, res) => {
         {
           $pull: { parties: req.params._id },
         },
-        { $set: { songs: "" } }
+        { $unset: { songs: 1 } }
       ).then((party) => {
         if (party) {
           res.send({ notification: "Utilisateur enlevé" });
