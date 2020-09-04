@@ -172,7 +172,7 @@ exports.users_promote = (req, res) => {
     {
       _id: req.params._id,
     },
-    { rank: req.body.state }
+    { rank: req.body.rank }
   ).then((user) => {
     if (user) {
       console.log(user);
