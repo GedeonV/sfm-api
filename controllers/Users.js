@@ -175,6 +175,7 @@ exports.users_promote = (req, res) => {
     { rank: req.body.state }
   ).then((user) => {
     if (user) {
+      console.log(user);
       if (user.rank == 1) {
         res.json({ notification: "Utilisateur promu Administrateur" });
       } else {
