@@ -24,4 +24,6 @@ users.delete("/:email", checkAuth, UsersController.users_delete);
 
 users.put("/user/:_id", checkAuth, UsersController.users_update);
 
+users.put("/user/:_id/rank", checkAuth, UsersController.users_promote);
+
 module.exports = users;

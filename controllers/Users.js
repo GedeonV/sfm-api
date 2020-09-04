@@ -67,7 +67,7 @@ exports.users_login = (req, res) => {
             rank: user.rank,
             created_at: user.created_at,
           };
-          res.send(data_json);
+          res.json(data_json);
         } else {
           res.json({ error: "Mauvais mot de passe" });
         }
@@ -84,7 +84,7 @@ exports.users_get_all = (req, res) => {
   User.find({})
     .then((user) => {
       if (user) {
-        res.send(user);
+        res.json(user);
       } else {
         res.json({ error: "Aucune donnée" });
       }
@@ -113,7 +113,7 @@ exports.users_get_id = (req, res) => {
           parties: user.parties,
           created_at: user.created_at,
         };
-        res.send(data_json);
+        res.json(data_json);
       } else {
         res.json({ error: "L'utilisateur n'existe pas" });
       }
@@ -129,7 +129,7 @@ exports.users_delete = (req, res) => {
   })
     .then((user) => {
       if (user) {
-        res.send({ notification: "Utilisateur supprimé" });
+        res.json({ notification: "Utilisateur supprimé" });
       } else {
         res.json({ error: "Impossible de supprimé" });
       }
@@ -157,7 +157,7 @@ exports.users_update = (req, res) => {
   )
     .then((user) => {
       if (user) {
-        res.send({ notification: "Utilisateur est modifié" });
+        res.json({ notification: "Utilisateur est modifié" });
       } else {
         res.json({ error: "Impossible de mettre à jour" });
       }
@@ -165,4 +165,23 @@ exports.users_update = (req, res) => {
     .catch((err) => {
       res.json({ error: err });
     });
+};
+
+exports.users_promote = (req, res) => {
+  User.findOneAndUpdate(
+    {
+      _id: req.params._id,
+    },
+    { rank: req.body.state }
+  ).then((user) => {
+    if (user) {
+      if (user.rank == 1) {
+        res.json({ notification: "Utilisateur promu Administrateur" });
+      } else {
+        res.json({ notification: "Utilisateur rétrogradé" });
+      }
+    } else {
+      res.json({ error: "Impossible de mettre à jour" });
+    }
+  });
 };
