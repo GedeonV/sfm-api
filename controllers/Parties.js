@@ -56,8 +56,10 @@ exports.parties_get_id = (req, res) => {
   Party.findOne({
     _id: req.params._id,
   })
-    .populate("users")
-    .populate("users.songs")
+    .populate({
+      path: "users",
+      populate: { path: "songs" },
+    })
     .populate("songs")
     .then((party) => {
       if (party) {
