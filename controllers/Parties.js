@@ -57,6 +57,7 @@ exports.parties_get_id = (req, res) => {
     _id: req.params._id,
   })
     .populate("users")
+    .populate("users.songs")
     .populate("songs")
     .then((party) => {
       if (party) {
