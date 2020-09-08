@@ -24,10 +24,27 @@ exports.parties_create = (req, res) => {
       if (!party) {
         Party.create(partyData)
           .then((party) => {
-            res.json({ status: party.event_name + "  enregistré" });
+            res.status(200).json({
+              message: "Événement créé avec succès",
+              createdEvent: {
+                event_name: party.event_name,
+                date: party.date,
+                location: party.location,
+                description: party.description,
+                state: party.state,
+                theme: party.theme,
+                _id: party._id,
+                request: {
+                  type: "GET",
+                  url:
+                    "https://sfm-project.herokuapp.com/parties/event/" +
+                    party._id,
+                },
+              },
+            });
           })
           .catch((err) => {
-            res.json({ error: err });
+            res.status(500).json({ error: err });
           });
       } else {
         res.status(409).json({ error: "Un évènement porte déjà ce nom" });
