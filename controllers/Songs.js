@@ -6,8 +6,8 @@ const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
   cloud_name: "sfm88",
-  api_key: "928328299487922",
-  api_secret: "ml3tMM05ePIw8-z8zUYOhEw4nZs",
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
 });
 
 exports.songs_get_all = (req, res) => {
