@@ -119,7 +119,7 @@ exports.songs_upload = (req, res) => {
               };
               Song.create(songData)
                 .then((song) => {
-                  res.status(200).json({
+                  res.status(201).json({
                     message: song.title + "  enregistré",
                     song: song,
                   });

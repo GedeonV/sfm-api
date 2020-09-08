@@ -24,7 +24,7 @@ exports.parties_create = (req, res) => {
       if (!party) {
         Party.create(partyData)
           .then((party) => {
-            res.status(200).json({
+            res.status(201).json({
               message: "Événement créé avec succès",
               createdEvent: {
                 event_name: party.event_name,

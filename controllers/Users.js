@@ -3,9 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
-process.env.SECRET_KEY = "sfmprj88";
-const checkAuth = require("../middleware/check-auth");
-
 exports.users_register = (req, res) => {
   const today = new Date();
   const userData = {
@@ -26,18 +23,33 @@ exports.users_register = (req, res) => {
           userData.password = hash;
           User.create(userData)
             .then((user) => {
-              res.json({ status: user.email + "  enregistrée" });
+              res.status(201).json({
+                message: "Utilisateur enregistré",
+                createdUser: {
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  email: user.email,
+                  mobile: user.mobile,
+                  _id: user._id,
+                  request: {
+                    type: "GET",
+                    url:
+                      "https://sfm-project.herokuapp.com/users/user/" +
+                      user._id,
+                  },
+                },
+              });
             })
             .catch((err) => {
-              res.json({ error: err });
+              res.status(404).json({ error: err });
             });
         });
       } else {
-        res.json({ error: "Utilisateur existe déjà" });
+        res.status(409).json({ error: "Utilisateur existe déjà" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -67,12 +79,12 @@ exports.users_login = (req, res) => {
             rank: user.rank,
             created_at: user.created_at,
           };
-          res.json(data_json);
+          res.status(200).json(data_json);
         } else {
-          res.json({ error: "Mauvais mot de passe" });
+          res.status(404).json({ error: "Mauvais mot de passe" });
         }
       } else {
-        res.json({ error: "User does not exist" });
+        res.status(500).json({ error: "User does not exist" });
       }
     })
     .catch((err) => {
@@ -84,13 +96,31 @@ exports.users_get_all = (req, res) => {
   User.find({})
     .then((user) => {
       if (user) {
-        res.json(user);
+        res.status(200).json({
+          count: user.length,
+          users: user.map((doc) => {
+            return {
+              _id: doc._id,
+              first_name: doc.first_name,
+              last_name: doc.last_name,
+              email: doc.email,
+              mobile: doc.mobile,
+              songs: doc.songs,
+              parties: doc.parties,
+              rank: doc.rank,
+              request: {
+                type: "GET",
+                url: "https://sfm-project.herokuapp.com/users/user/" + doc._id,
+              },
+            };
+          }),
+        });
       } else {
-        res.json({ error: "Aucune donnée" });
+        res.status(204).json({ error: "Aucune donnée" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -102,24 +132,19 @@ exports.users_get_id = (req, res) => {
     .populate("songs")
     .then((user) => {
       if (user) {
-        let data_json = {
-          token: user.token,
-          user_id: user._id,
-          email: user.email,
-          mobile: user.mobile,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          location: user.location,
-          parties: user.parties,
-          created_at: user.created_at,
-        };
-        res.json(data_json);
+        res.status(200).json({
+          user: user,
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/users/",
+          },
+        });
       } else {
-        res.json({ error: "L'utilisateur n'existe pas" });
+        res.status(404).json({ error: "L'utilisateur n'existe pas" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -129,13 +154,19 @@ exports.users_delete = (req, res) => {
   })
     .then((user) => {
       if (user) {
-        res.json({ notification: "Utilisateur supprimé" });
+        res.status(200).json({
+          message: "Utilisateur supprimé",
+          request: {
+            type: "POST",
+            url: "https://sfm-project.herokuapp.com/users/register",
+          },
+        });
       } else {
-        res.json({ error: "Impossible de supprimé" });
+        res.status(404).json({ error: "Impossible de supprimé" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -157,13 +188,19 @@ exports.users_update = (req, res) => {
   )
     .then((user) => {
       if (user) {
-        res.json({ notification: "Utilisateur est modifié" });
+        res.status(200).json({
+          message: "Utilisateur est modifié",
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/users/users/" + user._id,
+          },
+        });
       } else {
-        res.json({ error: "Impossible de mettre à jour" });
+        res.status(404).json({ error: "Impossible de mettre à jour" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -173,15 +210,19 @@ exports.users_promote = (req, res) => {
       _id: req.params._id,
     },
     { rank: req.body.rank }
-  ).then((user) => {
-    if (user) {
-      if (user.rank == 0) {
-        res.json({ notification: "Utilisateur promu Administrateur" });
+  )
+    .then((user) => {
+      if (user) {
+        if (user.rank == 0) {
+          res.status(200).json({ message: "Utilisateur promu Administrateur" });
+        } else {
+          res.status(200).json({ message: "Utilisateur rétrogradé" });
+        }
       } else {
-        res.json({ notification: "Utilisateur rétrogradé" });
+        res.status(404).json({ error: "Impossible de mettre à jour" });
       }
-    } else {
-      res.json({ error: "Impossible de mettre à jour" });
-    }
-  });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err });
+    });
 };
