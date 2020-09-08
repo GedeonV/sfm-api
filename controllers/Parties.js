@@ -30,11 +30,11 @@ exports.parties_create = (req, res) => {
             res.json({ error: err });
           });
       } else {
-        res.json({ error: "Un évènement porte déjà ce nom" });
+        res.status(409).json({ error: "Un évènement porte déjà ce nom" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -44,24 +44,11 @@ exports.parties_get_all = (req, res) => {
       if (party) {
         res.status(200).json({
           count: party.length,
-          events: party.map((doc) => {
-            return {
-              _id: doc._id,
-              event_name: doc.event_name,
-              date: doc.date,
-              location: doc.location,
-              description: doc.description,
-              state: doc.state,
-              theme: doc.theme,
-              songs: doc.songs,
-              users: doc.users,
-              request: {
-                type: "GET",
-                url:
-                  "https://sfm-project.herokuapp.com/parties/event/" + doc._id,
-              },
-            };
-          }),
+          events: party,
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/parties/event/" + party._id,
+          },
         });
       } else {
         res.status(204).json({ error: "Aucune donnée" });
