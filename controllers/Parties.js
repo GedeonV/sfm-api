@@ -294,7 +294,7 @@ exports.parties_add_songs = (req, res) => {
           message: "Musique ajouté",
           request: {
             type: "GET",
-            url: "https://sfm-project.herokuapp.com/songs/song/" + party._id,
+            url: "https://sfm-project.herokuapp.com/songs/",
           },
         });
       } else {
@@ -319,7 +319,7 @@ exports.parties_remove_songs = (req, res) => {
           message: "Musique enlevée",
           request: {
             type: "GET",
-            url: "https://sfm-project.herokuapp.com/songs/song/" + party._id,
+            url: "https://sfm-project.herokuapp.com/songs/",
           },
         });
       } else {
