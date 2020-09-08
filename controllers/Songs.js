@@ -14,13 +14,31 @@ exports.songs_get_all = (req, res) => {
   Song.find({})
     .then((song) => {
       if (song) {
-        res.json(song);
+        res.status(200).json({
+          count: song.length,
+          songs: party.map((doc) => {
+            return {
+              _id: doc._id,
+              title: doc.title,
+              artist: doc.artist,
+              album: doc.album,
+              date: doc.date,
+              style: doc.style,
+              time: doc.time,
+              path: doc.path,
+              request: {
+                type: "GET",
+                url: "https://sfm-project.herokuapp.com/songs/song/" + doc._id,
+              },
+            };
+          }),
+        });
       } else {
-        res.json({ error: "Aucune donnée" });
+        res.status(204).json({ error: "Aucune donnée" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
