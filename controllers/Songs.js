@@ -48,24 +48,19 @@ exports.songs_get_id = (req, res) => {
   })
     .then((song) => {
       if (song) {
-        let data_json = {
-          song_id: song._id,
-          title: song.title,
-          artist: song.artist,
-          album: song.album,
-          date: song.date,
-          style: song.style,
-          time: song.time,
-          path: song.path,
-          created_at: song.created_at,
-        };
-        res.json(data_json);
+        res.status(200).json({
+          song: song,
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/songs/",
+          },
+        });
       } else {
-        res.json({ error: "Cette musique n'existe pas" });
+        res.status(404).json({ error: "Cette musique n'existe pas" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(200).json({ error: err });
     });
 };
 
@@ -75,13 +70,19 @@ exports.songs_delete = (req, res) => {
   })
     .then((song) => {
       if (song) {
-        res.json({ notification: "Musique supprimée" });
+        res.status(200).json({
+          message: "Musique supprimée",
+          request: {
+            type: "POST",
+            url: "https://sfm-project.herokuapp.com/songs/upload",
+          },
+        });
       } else {
-        res.json({ error: "Impossible de supprimé" });
+        res.status(404).json({ error: "Impossible de supprimé" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -98,11 +99,11 @@ exports.songs_upload = (req, res) => {
           {
             resource_type: "raw",
             public_id: `uploads/${req.file.originalname}`,
-          }, // directory and tags are optional
+          },
           (err, song) => {
             if (err) {
               console.log(err);
-              res.json({ error: err });
+              res.status(404).json({ error: err });
             } else {
               console.log("file uploaded to Cloudinary");
               console.log(song);
@@ -118,13 +119,13 @@ exports.songs_upload = (req, res) => {
               };
               Song.create(songData)
                 .then((song) => {
-                  res.json({
-                    notification: song.title + "  enregistré",
+                  res.status(200).json({
+                    message: song.title + "  enregistré",
                     song: song,
                   });
                 })
                 .catch((err) => {
-                  res.json({ error: err });
+                  res.status(404).json({ error: err });
                 });
               // remove file from server
               fs.unlinkSync(req.file.path);
@@ -132,10 +133,10 @@ exports.songs_upload = (req, res) => {
           }
         );
       } else {
-        res.json({ error: "Ce son existe déjà" });
+        res.status(404).json({ error: "Ce son existe déjà" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
