@@ -16,7 +16,7 @@ exports.songs_get_all = (req, res) => {
       if (song) {
         res.status(200).json({
           count: song.length,
-          songs: party.map((doc) => {
+          songs: song.map((doc) => {
             return {
               _id: doc._id,
               title: doc.title,
