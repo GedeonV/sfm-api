@@ -100,28 +100,19 @@ exports.parties_get_id = (req, res) => {
     .populate("songs")
     .then((party) => {
       if (party) {
-        let data_json = {
-          party_id: party._id,
-          event_name: party.event_name,
-          description: party.description,
-          location: party.location,
-          date: party.date,
-          state: party.state,
-          event_code: party.event_code,
-          theme: party.theme,
-          users: party.users,
-          songs: party.songs,
-          current_song: party.current_song,
-          current_user: party.current_user,
-          created_at: party.created_at,
-        };
-        res.send(data_json);
+        res.status(200).json({
+          event: party,
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/parties/",
+          },
+        });
       } else {
-        res.json({ error: "L'événement n'existe pas" });
+        res.status(404).json({ error: "L'événement n'existe pas" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -131,13 +122,19 @@ exports.parties_delete = (req, res) => {
   })
     .then((party) => {
       if (party) {
-        res.send({ notification: "Evénèment supprimé" });
+        res.status(200).json({
+          message: "Evénèment supprimé",
+          request: {
+            type: "POST",
+            url: "https://sfm-project.herokuapp.com/parties/",
+          },
+        });
       } else {
-        res.json({ error: "Impossible de supprimé" });
+        res.status(404).json({ error: "Impossible de supprimé" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -161,13 +158,19 @@ exports.parties_update = (req, res) => {
   )
     .then((party) => {
       if (party) {
-        res.send({ notification: "Evènement modifié" });
+        res.status(200).json({
+          message: "Evènement modifié",
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/parties/event" + party._id,
+          },
+        });
       } else {
-        res.json({ error: "Impossible de mettre à jour" });
+        res.status(404).json({ error: "Impossible de mettre à jour" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -176,20 +179,20 @@ exports.parties_status = (req, res) => {
     .then((party) => {
       if (party) {
         if (req.body.state == 1) {
-          res.json({ notification: "Evènement démarré" });
+          res.status(200).json({ message: "Evènement démarré" });
         } else if (req.body.state == 2) {
-          res.json({ notification: "Evènement terminé" });
+          res.status(200).json({ message: "Evènement terminé" });
         } else if (req.body.state == 0) {
-          res.json({ notification: "Evènement non commencé" });
+          res.status(200).json({ message: "Evènement non commencé" });
         } else if (req.body.state > 2) {
-          res.json({ notification: "Etat inconnu" });
+          res.status(200).json({ message: "Etat inconnu" });
         }
       } else {
-        res.json({ error: "Impossible de changer l'état" });
+        res.status(404).json({ error: "Impossible de changer l'état" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -211,14 +214,22 @@ exports.parties_signup = (req, res) => {
         }
       ).then((party) => {
         if (party) {
-          res.json({ notification: "Utilisateur inscrit" });
+          res.status(200).json({
+            message: "Utilisateur inscrit",
+            request: {
+              type: "GET",
+              url: "https://sfm-project.herokuapp.com/users/user/" + party._id,
+            },
+          });
         } else {
-          res.json({ error: "Impossible d'inscrire l'utilisateur" });
+          res
+            .status(404)
+            .json({ error: "Impossible d'inscrire l'utilisateur" });
         }
       });
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -237,20 +248,28 @@ exports.parties_unsub_user = (req, res) => {
         }
       ).then((party) => {
         if (party) {
-          res.json({ notification: "Utilisateur désinscrit de l'évenement" });
+          res.status(200).json({
+            message: "Utilisateur désinscrit de l'évenement",
+            request: {
+              type: "GET",
+              url: "https://sfm-project.herokuapp.com/users/user/" + party._id,
+            },
+          });
         } else {
-          res.json({ error: "Impossible de désinscrire l'utilisateur" });
+          res
+            .status(404)
+            .json({ error: "Impossible de désinscrire l'utilisateur" });
         }
         User.findOneAndUpdate(
           { _id: req.body.userId },
           { $unset: { songs: true } }
         ).then((party) => {
           if (party) {
-            res.json({
-              notification: "Musiques associé à l'utilisateur enlevées",
+            res.status(200).json({
+              message: "Musiques associé à l'utilisateur enlevées",
             });
           } else {
-            res.json({
+            res.status(404).json({
               error: "Impossible d'enlever les musiques de l'utilisateur",
             });
           }
@@ -258,7 +277,7 @@ exports.parties_unsub_user = (req, res) => {
       });
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -271,13 +290,13 @@ exports.parties_add_songs = (req, res) => {
   )
     .then((party) => {
       if (party) {
-        res.json({ notification: "Musique ajouté" });
+        res.status(200).json({ message: "Musique ajouté" });
       } else {
-        res.json({ error: "Impossible d'ajouter une musique" });
+        res.status(404).json({ error: "Impossible d'ajouter une musique" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 
@@ -290,18 +309,18 @@ exports.parties_remove_songs = (req, res) => {
   )
     .then((party) => {
       if (party) {
-        res.json({ notification: "Musique enlevée" });
+        res.status(200).json({
+          message: "Musique enlevée",
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/songs/song/" + party._id,
+          },
+        });
       } else {
-        res.json({ error: "Impossible d'enlevé la musique" });
+        res.status(404).json({ error: "Impossible d'enlevé la musique" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
-
-/* if (party) {
-          res.send({ notification: "Utilisateur enlevé" });
-        } else {
-          res.json({ error: "Impossible d'enlever l'utilisateur" });
-        }*/
