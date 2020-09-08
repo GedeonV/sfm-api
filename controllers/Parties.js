@@ -162,7 +162,7 @@ exports.parties_update = (req, res) => {
           message: "Evènement modifié",
           request: {
             type: "GET",
-            url: "https://sfm-project.herokuapp.com/parties/event" + party._id,
+            url: "https://sfm-project.herokuapp.com/parties/event/" + party._id,
           },
         });
       } else {
