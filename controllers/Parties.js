@@ -42,13 +42,33 @@ exports.parties_get_all = (req, res) => {
   Party.find({})
     .then((party) => {
       if (party) {
-        res.send(party);
+        res.status(200).json({
+          count: party.length,
+          events: party.map((doc) => {
+            return {
+              _id: doc._id,
+              event_name: doc.event_name,
+              date: doc.date,
+              location: doc.location,
+              description: doc.description,
+              state: doc.state,
+              theme: doc.theme,
+              songs: doc.songs,
+              users: doc.users,
+              request: {
+                type: "GET",
+                url:
+                  "https://sfm-project.herokuapp.com/parties/event/" + doc._id,
+              },
+            };
+          }),
+        });
       } else {
-        res.json({ error: "Aucune donnée" });
+        res.status(204).json({ error: "Aucune donnée" });
       }
     })
     .catch((err) => {
-      res.json({ error: err });
+      res.status(500).json({ error: err });
     });
 };
 

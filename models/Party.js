@@ -11,7 +11,7 @@ const PartySchema = new Schema({
     required: true,
   },
   location: {
-    type: Object,
+    type: String,
     required: true,
   },
   description: {
@@ -33,14 +33,14 @@ const PartySchema = new Schema({
   users: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "users",
+      ref: "users", // Relation avec la table Users
     },
   ],
 
   songs: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "songs",
+      ref: "songs", // Relation avec la table Songs
     },
   ],
 

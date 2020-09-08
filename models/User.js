@@ -31,14 +31,14 @@ const UserSchema = new Schema({
   parties: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "parties",
+      ref: "parties", // Relation avec la table Parties
     },
   ],
 
   songs: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "songs",
+      ref: "songs", // Relation avec la table Songs
     },
   ],
 
