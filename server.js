@@ -23,7 +23,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 });*/
 
 const mongoURI =
-  "mongodb://arthur_88:prjsfm88@singforme-shard-00-00.ybbr4.mongodb.net:27017,singforme-shard-00-01.ybbr4.mongodb.net:27017,singforme-shard-00-02.ybbr4.mongodb.net:27017/project-sfm?ssl=true&replicaSet=atlas-mwe0ks-shard-0&authSource=admin&retryWrites=true&w=majority";
+  "mongodb://arthur_88:" +
+  process.env.MONGO_ATLAS_PW +
+  "@singforme-shard-00-00.ybbr4.mongodb.net:27017,singforme-shard-00-01.ybbr4.mongodb.net:27017,singforme-shard-00-02.ybbr4.mongodb.net:27017/project-sfm?ssl=true&replicaSet=atlas-mwe0ks-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 mongoose
   .connect(mongoURI, { useNewUrlParser: true })
