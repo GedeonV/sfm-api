@@ -204,6 +204,7 @@ exports.parties_signup = (req, res) => {
     { $addToSet: { users: req.body.userId } }
   )
     .then((party) => {
+      // Ajout de l'évenement dans la table users ainsi que les chansons dans la table songs
       User.findOneAndUpdate(
         { _id: req.body.userId },
         {
