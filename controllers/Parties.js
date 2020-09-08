@@ -126,7 +126,7 @@ exports.parties_delete = (req, res) => {
           message: "Evénèment supprimé",
           request: {
             type: "POST",
-            url: "https://sfm-project.herokuapp.com/parties/",
+            url: "https://sfm-project.herokuapp.com/parties/create",
           },
         });
       } else {
@@ -290,7 +290,13 @@ exports.parties_add_songs = (req, res) => {
   )
     .then((party) => {
       if (party) {
-        res.status(200).json({ message: "Musique ajouté" });
+        res.status(200).json({
+          message: "Musique ajouté",
+          request: {
+            type: "GET",
+            url: "https://sfm-project.herokuapp.com/songs/song/" + party._id,
+          },
+        });
       } else {
         res.status(404).json({ error: "Impossible d'ajouter une musique" });
       }
