@@ -17,11 +17,6 @@ const PartySchema = new Schema({
   description: {
     type: String,
   },
-  event_code: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   theme: {
     type: String,
   },
