@@ -4,7 +4,6 @@ const cors = require("cors");
 
 users.use(cors());
 
-process.env.SECRET_KEY = "sfmprj88";
 const checkAuth = require("../middleware/check-auth");
 // Middleware pour vérifier si l'utilisateur utilise un token valide
 
