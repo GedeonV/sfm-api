@@ -43,7 +43,7 @@ const UserSchema = new Schema({
       },
       song: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "songs", // Relation avec la table Songs
+        ref: "songs", // Relation avec la table Parties
       },
     },
   ],
