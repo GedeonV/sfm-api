@@ -96,10 +96,7 @@ exports.parties_get_id = (req, res) => {
       path: "users",
       populate: { path: "songs.song" },
     })
-    .populate({
-      path: "users",
-      populate: { path: "songs" },
-    })
+    .populate("songs")
     .then((party) => {
       if (party) {
         res.status(200).json({
