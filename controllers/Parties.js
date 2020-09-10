@@ -94,16 +94,11 @@ exports.parties_get_id = (req, res) => {
   })
     .populate({
       path: "users",
-      populate: { path: "songs" },
+      populate: { path: "songs.song" },
     })
     .populate({
       path: "users",
-      populate: {
-        path: "songs",
-        populate: {
-          path: "song",
-        },
-      },
+      populate: { path: "songs" },
     })
     .then((party) => {
       if (party) {
