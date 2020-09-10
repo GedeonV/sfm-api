@@ -203,6 +203,7 @@ exports.parties_signup = (req, res) => {
   )
     .then((party) => {
       // Ajout de l'évenement dans la table users ainsi que les chansons dans la table songs
+      console.log(req.body.songId);
       User.findOneAndUpdate(
         { _id: req.body.userId },
         {
