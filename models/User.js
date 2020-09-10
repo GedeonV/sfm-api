@@ -41,10 +41,12 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "parties", // Relation avec la table Parties
       },
-      song: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "songs", // Relation avec la table Parties
-      },
+      song: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "songs", // Relation avec la table Parties
+        },
+      ],
     },
   ],
 
