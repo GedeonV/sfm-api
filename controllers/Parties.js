@@ -208,7 +208,7 @@ exports.parties_signup = (req, res) => {
         {
           $addToSet: {
             parties: req.params._id,
-            songs: { $each: req.body.songId },
+            songs: { song: { $each: req.body.songId }, event: req.params._id },
           },
         }
       ).then((party) => {
