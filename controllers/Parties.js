@@ -261,7 +261,7 @@ exports.parties_unsub_user = (req, res) => {
         }
         User.findOneAndUpdate(
           { _id: req.body.userId },
-          { $unset: { songs: true } }
+          { $pull: { songs: [req.params._id] } }
         ).then((party) => {
           if (party) {
             res.status(200).json({
