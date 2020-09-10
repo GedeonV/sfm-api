@@ -208,7 +208,7 @@ exports.parties_signup = (req, res) => {
         {
           $addToSet: {
             parties: req.params._id,
-            songs: { song: { $each: req.body.songId }, event: req.params._id },
+            songs: { song: req.body.songId, event: req.params._id },
           },
         }
       ).then((party) => {
@@ -228,7 +228,6 @@ exports.parties_signup = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).json({ error: err });
     });
 };
