@@ -97,8 +97,13 @@ exports.parties_get_id = (req, res) => {
       populate: { path: "songs" },
     })
     .populate({
-      path: "songs",
-      populate: { path: "song" },
+      path: "users",
+      populate: {
+        path: "songs",
+        populate: {
+          path: "song",
+        },
+      },
     })
     .then((party) => {
       if (party) {
