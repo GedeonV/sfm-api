@@ -45,6 +45,7 @@ exports.parties_create = (req, res) => {
           })
           .catch((err) => {
             res.status(500).json({ error: err });
+            console.log(err);
           });
       } else {
         res.status(409).json({ error: "Un évènement porte déjà ce nom" });
