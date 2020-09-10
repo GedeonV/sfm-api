@@ -145,7 +145,6 @@ exports.parties_update = (req, res) => {
     location: req.body.location,
     description: req.body.description,
     state: req.body.state,
-    event_code: req.body.event_code,
     theme: req.body.theme,
     updated_at: today,
   };
