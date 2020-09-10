@@ -211,7 +211,7 @@ exports.parties_signup = (req, res) => {
             parties: req.params._id,
             songs: {
               _id: req.params._id,
-              song: { $each: req.body.songId },
+              song: req.body.songId,
             },
           },
         }
