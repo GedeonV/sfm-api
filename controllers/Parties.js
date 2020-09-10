@@ -11,10 +11,7 @@ exports.parties_create = (req, res) => {
     location: req.body.location,
     description: req.body.description,
     state: req.body.state,
-    event_code: req.body.event_code,
     theme: req.body.theme,
-    current_song: req.body.current_song,
-    current_user: req.body.current_user,
     created: today,
   };
   Party.findOne({

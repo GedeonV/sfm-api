@@ -38,13 +38,6 @@ const PartySchema = new Schema({
       ref: "songs", // Relation avec la table Songs
     },
   ],
-
-  current_song: {
-    type: Object,
-  },
-  current_user: {
-    type: Object,
-  },
   created_at: {
     type: Date,
     default: Date.now,
