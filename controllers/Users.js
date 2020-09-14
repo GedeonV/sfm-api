@@ -67,7 +67,7 @@ exports.users_login = (req, res) => {
             email: user.email,
           };
           let token = jwt.sign(payload, process.env.SECRET_KEY, {
-            expiresIn: "1h",
+            expiresIn: "4h",
           });
           let data_json = {
             token: token,
