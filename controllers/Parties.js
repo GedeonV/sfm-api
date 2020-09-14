@@ -22,7 +22,7 @@ exports.parties_create = (req, res) => {
         Party.create(partyData)
           .then((party) => {
             res.status(201).json({
-              message: "Événement créé avec succès",
+              message: "Évènement créé avec succès",
               createdEvent: {
                 event_name: party.event_name,
                 date: party.date,
@@ -107,7 +107,7 @@ exports.parties_get_id = (req, res) => {
           },
         });
       } else {
-        res.status(404).json({ error: "L'événement n'existe pas" });
+        res.status(404).json({ error: "L'évènement n'existe pas" });
       }
     })
     .catch((err) => {
