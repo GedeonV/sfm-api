@@ -212,6 +212,7 @@ exports.parties_signup = (req, res) => {
             songs: {
               _id: req.params._id,
               song: req.body.songId,
+              order: req.body.order,
             },
           },
         }

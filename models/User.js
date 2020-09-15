@@ -45,6 +45,9 @@ const UserSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "songs", // Relation avec la table Parties
       },
+      order: {
+        type: Number,
+      },
     },
   ],
 
