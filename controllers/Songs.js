@@ -113,7 +113,6 @@ exports.songs_upload = (req, res) => {
                 album: req.body.album,
                 date: req.body.date,
                 style: req.body.style,
-                time: req.body.time,
                 path: song.url,
                 created: today,
               };
